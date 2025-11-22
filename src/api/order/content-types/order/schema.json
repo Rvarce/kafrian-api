@@ -1,0 +1,72 @@
+{
+  "kind": "collectionType",
+  "collectionName": "orders",
+  "info": {
+    "singularName": "order",
+    "pluralName": "orders",
+    "displayName": "Order"
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "attributes": {
+    "email": {
+      "type": "email",
+      "required": true
+    },
+
+    "first_name": {
+      "type": "string",
+      "required": true
+    },
+
+    "last_name": {
+      "type": "string",
+      "required": true
+    },
+
+    "items": {
+      "type": "json",
+      "required": true
+    },
+
+    "total": {
+      "type": "decimal",
+      "required": true
+    },
+
+    "payment_status": {
+      "type": "enumeration",
+      "enum": ["pending", "paid", "cancelled", "refunded"],
+      "default": "pending"
+    },
+
+    "payment_method": {
+      "type": "string"
+    },
+
+    "payment_id": {
+      "type": "string"
+    },
+
+    "payment_detail": {
+      "type": "json",
+      "description": "Información completa retornada por MercadoPago"
+    },
+
+    "address": {
+      "type": "json",
+      "required": true
+    },
+
+    "phone": {
+      "type": "string"
+    },
+
+    "user": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "plugin::users-permissions.user"
+    }
+  }
+}

@@ -1,0 +1,30 @@
+{
+  "kind": "collectionType",
+  "collectionName": "shipping_zones",
+  "info": {
+    "singularName": "shipping-zone",
+    "pluralName": "shipping-zones",
+    "displayName": "Shipping Zone"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string"
+    },
+    "regions": {
+      "type": "text"
+    },
+    "base_price": {
+      "type": "integer"
+    },
+    "price_per_kg": {
+      "type": "integer"
+    },
+    "free_shipping_from": {
+      "type": "integer"
+    }
+  }
+}

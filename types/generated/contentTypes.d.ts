@@ -490,7 +490,11 @@ export interface ApiOrderOrder extends Struct.CollectionTypeSchema {
     > &
       Schema.Attribute.DefaultTo<'pending'>;
     phone: Schema.Attribute.String;
+    providers_count: Schema.Attribute.Integer;
     publishedAt: Schema.Attribute.DateTime;
+    shipping_breakdown: Schema.Attribute.JSON;
+    shipping_price: Schema.Attribute.Decimal;
+    shipping_zone: Schema.Attribute.String;
     total: Schema.Attribute.Decimal & Schema.Attribute.Required;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
@@ -548,6 +552,12 @@ export interface ApiProductProduct extends Struct.CollectionTypeSchema {
           localized: true;
         };
       }>;
+    proveedor: Schema.Attribute.String &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
     publishedAt: Schema.Attribute.DateTime;
     slug: Schema.Attribute.UID<'title'> &
       Schema.Attribute.SetPluginOptions<{
@@ -567,6 +577,39 @@ export interface ApiProductProduct extends Struct.CollectionTypeSchema {
           localized: true;
         };
       }>;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface ApiShippingZoneShippingZone
+  extends Struct.CollectionTypeSchema {
+  collectionName: 'shipping_zones';
+  info: {
+    displayName: 'Shipping Zone';
+    pluralName: 'shipping-zones';
+    singularName: 'shipping-zone';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    base_price: Schema.Attribute.Integer;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    free_shipping_from: Schema.Attribute.Integer;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::shipping-zone.shipping-zone'
+    > &
+      Schema.Attribute.Private;
+    name: Schema.Attribute.String;
+    price_per_kg: Schema.Attribute.Integer;
+    publishedAt: Schema.Attribute.DateTime;
+    regions: Schema.Attribute.Text;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -1122,6 +1165,7 @@ declare module '@strapi/strapi' {
       'api::category.category': ApiCategoryCategory;
       'api::order.order': ApiOrderOrder;
       'api::product.product': ApiProductProduct;
+      'api::shipping-zone.shipping-zone': ApiShippingZoneShippingZone;
       'api::user-profile.user-profile': ApiUserProfileUserProfile;
       'plugin::content-releases.release': PluginContentReleasesRelease;
       'plugin::content-releases.release-action': PluginContentReleasesReleaseAction;

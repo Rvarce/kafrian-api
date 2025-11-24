@@ -27,12 +27,38 @@
 
     "items": {
       "type": "json",
-      "required": true
+      "required": true,
+      "description": "Listado de productos comprados (sin incluir Envío)"
     },
 
     "total": {
       "type": "decimal",
-      "required": true
+      "required": true,
+      "description": "Total pagado (productos + envío)"
+    },
+
+    "shipping_price": {
+      "type": "decimal",
+      "required": false,
+      "description": "Monto pagado por concepto de envío"
+    },
+
+    "shipping_zone": {
+      "type": "string",
+      "required": false,
+      "description": "Zona logística (ej. Zona Norte, Zona Sur, Metropolitana)"
+    },
+
+    "shipping_breakdown": {
+      "type": "json",
+      "required": false,
+      "description": "Detalle de envíos por proveedor (si aplica)"
+    },
+
+    "providers_count": {
+      "type": "integer",
+      "required": false,
+      "description": "Cantidad de proveedores involucrados en el pedido"
     },
 
     "payment_status": {
@@ -56,7 +82,8 @@
 
     "address": {
       "type": "json",
-      "required": true
+      "required": true,
+      "description": "Dirección de envío utilizada para el pedido"
     },
 
     "phone": {

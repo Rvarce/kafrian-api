@@ -10,5 +10,13 @@ export default {
         middlewares: [],
       },
     },
+    {
+      method: 'POST',
+      path: '/mercadopago/webhook-test',
+      handler: 'payment.webhookTest',
+      config: {
+        auth: false, // solo para desarrollo, luego lo puedes proteger
+      },
+    },
   ],
 }

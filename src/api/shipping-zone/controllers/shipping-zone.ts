@@ -16,7 +16,7 @@ export default factories.createCoreController('api::shipping-zone.shipping-zone'
 
       const products = await strapi.db.query('api::product.product').findMany({
         where: { id: { $in: productIds } },
-        select: ['id', 'price', 'proveedor'],
+        select: ['id', 'price', 'supplier_code'],
       });
 
       // 2) Armar grupos por proveedor
@@ -32,7 +32,7 @@ export default factories.createCoreController('api::shipping-zone.shipping-zone'
         if (!product) continue;
 
         const qty = Number(item.qty) || 1;
-        const supplier = product.proveedor || 'default';
+        const supplier = product.supplier_code || 'default';
 
         if (!groups[supplier]) {
           groups[supplier] = {

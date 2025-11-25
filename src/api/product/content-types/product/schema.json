@@ -76,8 +76,16 @@
       "relation": "oneToOne",
       "target": "api::category.category"
     },
-    "proveedor": {
+    "supplier_code": {
       "type": "string",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
+    },
+    "images_url": {
+      "type": "text",
       "pluginOptions": {
         "i18n": {
           "localized": true

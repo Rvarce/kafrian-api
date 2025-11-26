@@ -1,4 +1,5 @@
 import { MercadoPagoConfig, Payment } from 'mercadopago'
+import { buildOrderReceivedEmail, buildAdminOrderNotificationEmail } from '../../utils/buildOrderReceivedEmail'
 
 // declare const strapi: any  // si TS se queja
 
@@ -78,7 +79,8 @@ export async function processWebhook(payload: any) {
       phone: metadata.phone || payer.phone?.number || null,
       address: finalAddress,
       user: metadata.userId || null,
-
+      date_created: payment.date_approved || null,
+      date_approved: payment.date_created || null,
       payment_detail: payment,                 // JSON completo de MP
     }
 
@@ -100,6 +102,19 @@ export async function processWebhook(payload: any) {
         .create({ data: orderData })
     }
 
+    const htmlClient = buildOrderReceivedEmail(orderData)
+    await strapi.plugin('email').service('email').send({
+      to: orderData.email,
+      subject: 'KafriaN: ¡Tu compra ha sido recepcionada!',
+      html: htmlClient,
+    })
+
+    const htmlAdmin = buildAdminOrderNotificationEmail(orderData)
+    await strapi.plugin('email').service('email').send({
+      to: 'hola@kafrian.cl',
+      subject: 'KafriaN: Nueva compra desde la web, Yuhuu!!',
+      html: htmlAdmin,
+    })
     console.log('✅ Orden creada/actualizada correctamente en Strapi')
   } catch (err) {
     console.error('❌ Error en processWebhook:', err)

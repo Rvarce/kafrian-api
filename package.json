@@ -17,6 +17,7 @@
   "dependencies": {
     "@strapi/plugin-cloud": "5.30.1",
     "@strapi/plugin-users-permissions": "5.30.1",
+    "@strapi/provider-email-nodemailer": "^5.31.2",
     "@strapi/strapi": "5.30.1",
     "better-sqlite3": "11.3.0",
     "mercadopago": "^2.10.0",

@@ -1,6 +1,7 @@
 // src/api/mercadopago/controllers/payment.ts
 import { processWebhook } from '../services/payment'
 import type { Context } from 'koa'
+import { buildOrderReceivedEmail, buildAdminOrderNotificationEmail } from '../../utils/buildOrderReceivedEmail'
 
 type MpTestPayment = {
   id: string
@@ -8,6 +9,8 @@ type MpTestPayment = {
   status_detail: string
   transaction_amount: number
   payment_type_id?: string
+  date_approved: string
+  date_created: string
   payer?: {
     email?: string
     first_name?: string
@@ -63,7 +66,8 @@ export default {
         status: 'approved',
         status_detail: 'accredited',
         transaction_amount: body.transactionAmount || 15000,
-
+        date_approved: body.date_approved || new Date().toString(),
+        date_created: body.date_created || new Date().toString(),
         payment_type_id: 'test',
 
         payer: {
@@ -109,6 +113,8 @@ export default {
         address: finalAddress,
         user: metadata.userId || null,
         payment_detail: payment,
+        date_created: payment.date_approved || null,
+        date_approved: payment.date_created || null,
       }
 
       console.log('🧪 [TEST] Datos que se guardarán en Order:')
@@ -131,6 +137,20 @@ export default {
       }
 
       console.log('✅ [TEST] Orden creada/actualizada correctamente:', order.id)
+
+      const htmlClient = buildOrderReceivedEmail(orderData)
+      await strapi.plugin('email').service('email').send({
+        to: orderData.email,
+        subject: 'KafriaN: ¡Tu compra ha sido recepcionada!',
+        html: htmlClient,
+      })
+
+      const htmlAdmin = buildAdminOrderNotificationEmail(orderData)
+      await strapi.plugin('email').service('email').send({
+        to: 'hola@kafrian.cl',
+        subject: 'KafriaN: Nueva compra desde la web, Yuhuu!!',
+        html: htmlAdmin,
+      })
 
       ctx.send({
         ok: true,

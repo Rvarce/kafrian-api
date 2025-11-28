@@ -13,7 +13,8 @@ export default ({ env }) => ({
       provider: 'nodemailer',
       providerOptions: {
         host: env('SMTP_HOST'),
-        port: env.int('SMTP_PORT', 2525),
+        port: env.int('SMTP_PORT', 587),
+        secure: false, // TLS sobre 587 (STARTTLS)
         auth: {
           user: env('SMTP_USER'),
           pass: env('SMTP_PASS'),

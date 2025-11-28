@@ -109,12 +109,6 @@ export async function processWebhook(payload: any) {
       html: htmlClient,
     })
 
-    const htmlAdmin = buildAdminOrderNotificationEmail(orderData)
-    await strapi.plugin('email').service('email').send({
-      to: 'hola@kafrian.cl',
-      subject: 'KafriaN: Nueva compra desde la web, Yuhuu!!',
-      html: htmlAdmin,
-    })
     console.log('✅ Orden creada/actualizada correctamente en Strapi')
   } catch (err) {
     console.error('❌ Error en processWebhook:', err)

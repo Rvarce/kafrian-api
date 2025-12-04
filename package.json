@@ -15,10 +15,14 @@
     "upgrade:dry": "npx @strapi/upgrade latest --dry"
   },
   "dependencies": {
-    "@strapi/plugin-cloud": "5.30.1",
-    "@strapi/plugin-users-permissions": "5.30.1",
-    "@strapi/provider-email-nodemailer": "^5.31.2",
-    "@strapi/strapi": "5.30.1",
+    "@strapi/admin": "^5.31.3",
+    "@strapi/content-type-builder": "^5.31.3",
+    "@strapi/plugin-cloud": "^5.31.3",
+    "@strapi/plugin-users-permissions": "^5.31.3",
+    "@strapi/provider-email-nodemailer": "^5.31.3",
+    "@strapi/strapi": "^5.31.3",
+    "@strapi/upload": "^5.31.3",
+    "@upstash/redis": "^1.35.7",
     "better-sqlite3": "11.3.0",
     "mercadopago": "^2.10.0",
     "patch-package": "^8.0.1",

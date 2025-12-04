@@ -1,20 +1,39 @@
-// import type { Core } from '@strapi/strapi';
+import { Redis } from '@upstash/redis'
 
 export default {
-  /**
-   * An asynchronous register function that runs before
-   * your application is initialized.
-   *
-   * This gives you an opportunity to extend code.
-   */
-  register(/* { strapi }: { strapi: Core.Strapi } */) {},
+  register() {},
 
-  /**
-   * An asynchronous bootstrap function that runs before
-   * your application gets started.
-   *
-   * This gives you an opportunity to set up your data model,
-   * run jobs, or perform some special logic.
-   */
-  bootstrap(/* { strapi }: { strapi: Core.Strapi } */) {},
-};
+  bootstrap({ strapi }) {
+    const redis = new Redis({
+      url: process.env.UPSTASH_REDIS_REST_URL!,
+      token: process.env.UPSTASH_REDIS_REST_TOKEN!
+    })
+
+    const clearCache = async () => {
+      const keys = await redis.keys('cache:*')
+      for (const key of keys) await redis.del(key)
+      strapi.log.info('Cache invalidado automáticamente')
+    }
+
+    const events = [
+      'api::product.product',
+      'api::category.category'
+    ]
+
+    events.forEach(uid => {
+      strapi.db.lifecycles.subscribe({
+        models: [uid],
+
+        afterCreate() {
+          clearCache()
+        },
+        afterUpdate() {
+          clearCache()
+        },
+        afterDelete() {
+          clearCache()
+        }
+      })
+    })
+  }
+}

@@ -74,6 +74,10 @@
     },
     "address": {
       "type": "json"
+    },
+    "isAdmin": {
+      "type": "boolean",
+      "default": false
     }
   }
 }

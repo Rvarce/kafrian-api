@@ -94,6 +94,13 @@
       "type": "relation",
       "relation": "manyToOne",
       "target": "plugin::users-permissions.user"
+    },
+
+    "viewed": {
+      "type": "boolean",
+      "required": false,
+      "default": false,
+      "description": "Indica si la orden ya fue revisada por el admin"
     }
   }
 }

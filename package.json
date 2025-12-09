@@ -24,6 +24,7 @@
     "@strapi/upload": "^5.31.3",
     "@upstash/redis": "^1.35.7",
     "better-sqlite3": "11.3.0",
+    "dotenv": "^17.2.3",
     "mercadopago": "^2.10.0",
     "patch-package": "^8.0.1",
     "react": "^18.0.0",
@@ -35,7 +36,8 @@
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
-    "typescript": "^5"
+    "typescript": "^5",
+    "xlsx": "^0.18.5"
   },
   "engines": {
     "node": ">=18.0.0 <=22.x.x",

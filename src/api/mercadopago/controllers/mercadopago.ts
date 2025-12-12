@@ -41,11 +41,11 @@ const body: any = {
   },
   metadata,
   back_urls: {
-    success: "http://localhost:3000/success",
-    failure: "http://localhost:3000/failure",
-    pending: "http://localhost:3000/pending",
+    success: "https://kafrian.cl/success",
+    failure: "https://kafrian.cl/failure",
+    pending: "https://kafrian.cl/pending",
   },
-  // auto_return: "approved",
+  auto_return: "approved",
 
   // lo dejamos, aunque no lo veas en la UI, sirve para el cargo en la tarjeta
   statement_descriptor: "KafriaN",

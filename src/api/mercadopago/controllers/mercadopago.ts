@@ -41,9 +41,9 @@ const body: any = {
   },
   metadata,
   back_urls: {
-    success: "https://kafrian.cl/success",
-    failure: "https://kafrian.cl/failure",
-    pending: "https://kafrian.cl/pending",
+    success: "https://kafrian.cl/checkout/success",
+    failure: "https://kafrian.cl/checkout/failure",
+    pending: "https://kafrian.cl/checkout/pending",
   },
   auto_return: "approved",
 

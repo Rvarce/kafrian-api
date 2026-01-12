@@ -17,7 +17,6 @@ export default factories.createCoreController('api::user-profile.user-profile', 
       return ctx.conflict('Usuario ya existe')
     }
 
-    console.log({ email, password, firstName, lastName, address });
     const user = await strapi.db
       .query('api::user-profile.user-profile')
       .create({

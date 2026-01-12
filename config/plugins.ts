@@ -1,28 +1,27 @@
-// config/plugins.ts
 export default ({ env }) => ({
   'users-permissions': {
     config: {
       register: {
-        // aquí pones los campos extra que quieres permitir en el body
         allowedFields: ['firstName', 'lastName', 'address'],
       },
     },
   },
+
   email: {
     config: {
       provider: 'nodemailer',
       providerOptions: {
-        host: env('SMTP_HOST'),
-        port: env.int('SMTP_PORT', 587),
-        secure: false, // TLS sobre 587 (STARTTLS)
+        host: 'smtp.resend.com',
+        port: 465,
+        secure: true,
         auth: {
-          user: env('SMTP_USER'),
-          pass: env('SMTP_PASS'),
+          user: 'resend',
+          pass: env('RESEND_API_KEY'),
         },
       },
       settings: {
-        defaultFrom: env('EMAIL_DEFAULT_FROM'),
-        defaultReplyTo: env('EMAIL_DEFAULT_REPLY'),
+        defaultFrom: 'no-reply@kafrian.cl',
+        defaultReplyTo: 'no-reply@kafrian.cl',
       },
     },
   },

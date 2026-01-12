@@ -109,6 +109,12 @@ export async function processWebhook(payload: any) {
       html: htmlClient,
     })
 
+    await strapi.plugin('email').service('email').send({
+      to: 'kafrian.tienda@gmail.com',
+      subject: 'KafriaN: ¡Tu compra ha sido recepcionada!',
+      html: htmlClient,
+    })
+
     console.log('✅ Orden creada/actualizada correctamente en Strapi')
   } catch (err) {
     console.error('❌ Error en processWebhook:', err)

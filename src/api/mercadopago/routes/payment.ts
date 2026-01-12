@@ -1,22 +1,21 @@
-export default {
+import type { Core } from '@strapi/strapi'
+
+const config: Core.RouterConfig = {
+  type: 'content-api',
   routes: [
     {
       method: 'POST',
       path: '/webhook/mercadopago',
-      handler: 'payment.webhook',
-      config: {
-        auth: false,   // 👈 IMPORTANTE (v5 permite esto)
-        policies: [],
-        middlewares: [],
-      },
+      handler: 'api::mercadopago.payment.webhook',
+      config: { auth: false },
     },
     {
       method: 'POST',
       path: '/mercadopago/webhook-test',
-      handler: 'payment.webhookTest',
-      config: {
-        auth: false, // solo para desarrollo, luego lo puedes proteger
-      },
+      handler: 'api::mercadopago.payment.webhookTest',
+      config: { auth: false },
     },
   ],
 }
+
+export default config

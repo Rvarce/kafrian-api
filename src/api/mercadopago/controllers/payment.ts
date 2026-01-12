@@ -46,6 +46,7 @@ export default {
       console.error('❌ Error procesando webhook:', err)
     }
   },
+
   // 🚧 SOLO PARA PRUEBAS: simula un pago aprobado sin llamar a MP
   async webhookTest(ctx) {
     try {
@@ -145,12 +146,12 @@ export default {
         html: htmlClient,
       })
 
-      // const htmlAdmin = buildAdminOrderNotificationEmail(orderData)
-      // await strapi.plugin('email').service('email').send({
-      //   to: 'hola@kafrian.cl',
-      //   subject: 'KafriaN: Nueva compra desde la web, Yuhuu!!',
-      //   html: htmlAdmin,
-      // })
+      const htmlAdmin = buildAdminOrderNotificationEmail(orderData)
+      await strapi.plugin('email').service('email').send({
+        to: 'hola@kafrian.cl',
+        subject: 'KafriaN: Nueva compra desde la web, Yuhuu!!',
+        html: htmlAdmin,
+      })
 
       ctx.send({
         ok: true,
